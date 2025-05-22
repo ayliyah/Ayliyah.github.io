@@ -60,22 +60,6 @@
       display: none;
     }
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 20px;
-      background-color: #ff6f91;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #ff4d6d;
-    }
-
     .floating-hearts {
       position: absolute;
       top: 0;
@@ -112,22 +96,21 @@
   <h1>Click the heart 💖</h1>
   <div class="heart" onclick="showCompliment()">💗</div>
 
-  <div class="compliment" id="complimentBox">You're the best thing that's ever happened to me 🥺</div>
-  <button onclick="showCompliment()">Click me again!</button>
+  <div class="compliment" id="complimentBox"></div>
 
   <div class="floating-hearts" id="heartsContainer"></div>
 
   <script>
     const compliments = [
-      "You smell like sunshine and good vibes 🌞",
-      "If I had a dollar for every time I thought of you, I’d be rich and still in love 💸💕",
-      "You're the cutest human alive. Fight me on it. 💘",
-      "You're 100% certified cuddle material 🧸",
-      "I love you more than chocolate. And I *really* love chocolate. 🍫",
-      "If I were a cat, you'd be my favorite nap spot 🐾",
-      "You + Me = World domination but make it soft 💥💖",
-      "You're like a rare Pokémon, but snuggly 😚",
-      "You’re the reason I check my phone like a teenager in love 📱💞"
+      "You’re my favorite notification 🥹📱",
+      "You + food + a blanket = my perfect evening 🥖🧀🧸",
+      "I trust you to order my food. That’s how deep this goes. 🍕💘",
+      "Every time I see you, my brain goes 🦋🥰🫠",
+      "You’re the only person I’d share my fries with. And that’s saying a lot 🍟❤️",
+      "You’re my emotional support goblin 🐸💕",
+      "Every time I look at you, I think: yup, I win 💯",
+      "I’d let you eat the last chicken nugget. That’s real love 🐥💞",
+      "If you were a frog, I’d kiss you anyway 🐸💋"
     ];
 
     function showCompliment() {
@@ -137,7 +120,7 @@
       box.style.display = 'block';
     }
 
-    // Generate floating hearts
+    // Floating hearts animation
     const container = document.getElementById('heartsContainer');
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('span');
