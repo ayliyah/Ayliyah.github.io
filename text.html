@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Me Right 💬</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: #fff0f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    .game-box {
+      background: #fff;
+      border: 2px solid #ff69b4;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+    }
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .answers button {
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #ffb6c1;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .answers button:hover {
+      background: #ff69b4;
+      color: #fff;
+    }
+    .result {
+      margin-top: 1rem;
+      font-style: italic;
+    }
+    .final-message {
+      font-size: 1.4rem;
+      margin-top: 2rem;
+      font-weight: bold;
+      color: #d63384;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-box">
+    <div id="question" class="question"></div>
+    <div id="answers" class="answers"></div>
+    <div id="result" class="result"></div>
+    <div id="final" class="final-message"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "I'm cold 🥶",
+        options: [
+          { text: "Then turn on the heat?", score: 0, feedback: "Boo. Try again 😤" },
+          { text: "Want my hoodie? 🥺", score: 1, feedback: "Aww 🥰 Good answer!" },
+          { text: "Same. I'm freezing too.", score: 0, feedback: "Cute, but no help." }
+        ]
+      },
+      {
+        text: "I'm kinda sad today 😔",
+        options: [
+          { text: "I'll come over with snacks and hugs 💖", score: 1, feedback: "Perfect boyfriend energy!" },
+          { text: "Why though?", score: 0, feedback: "Not the time for questions 🙄" },
+          { text: "Oh… wanna nap?", score: 0, feedback: "You’re trying, I guess." }
+        ]
+      },
+      {
+        text: "Do I look fat in this? 😳",
+        options: [
+          { text: "What?! You're stunning, always 💘", score: 1, feedback: "10/10 safe and sweet." },
+          { text: "No, just... healthy? 🤷‍♂️", score: 0, feedback: "Delete yourself 😂" },
+          { text: "Let me see from the back too.", score: 0, feedback: "You flirt 🙃" }
+        ]
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById("question").textContent = q.text;
+      const answersDiv = document.getElementById("answers");
+      answersDiv.innerHTML = "";
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt.text;
+        btn.onclick = () => {
+          score += opt.score;
+          document.getElementById("result").textContent = opt.feedback;
+          setTimeout(() => {
+            document.getElementById("result").textContent = "";
+            current++;
+            if (current < questions.length) {
+              showQuestion();
+            } else {
+              showFinalMessage();
+            }
+          }, 1200);
+        };
+        answersDiv.appendChild(btn);
+      });
+    }
+
+    function showFinalMessage() {
+      document.getElementById("question").textContent = "Game Over 💬";
+      document.getElementById("answers").innerHTML = "";
+      const messages = [
+        "Hmm... we need to talk. 😂",
+        "You did okay! But I expect more next time 💅",
+        "Boyfriend of the year! 🏆"
+      ];
+      const msg = score === 3 ? messages[2] : score === 2 ? messages[1] : messages[0];
+      document.getElementById("final").textContent = msg;
+    }
+
+    showQuestion();
+  </script>
+</body>
+</html>
