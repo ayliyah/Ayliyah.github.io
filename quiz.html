@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fix-It Quiz 💖</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff6f9;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    #quiz {
+      background: #ffeaf2;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #c94f7c;
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .options button {
+      background: #c94f7c;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 10px 0;
+      width: 100%;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .options button:hover {
+      background: #a73d63;
+    }
+    .result {
+      font-size: 1em;
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="quiz">
+  <h1>Fix-It Quiz 💖</h1>
+  <div id="questionBox" class="question"></div>
+  <div id="optionsBox" class="options"></div>
+  <div id="resultBox" class="result" style="display:none;"></div>
+</div>
+
+<script>
+  const questions = {
+    start: {
+      text: "Do you know why she’s upset?",
+      options: {
+        "Yes": "q2",
+        "No": "q5",
+        "I think so, but not sure": "q3"
+      }
+    },
+    q2: {
+      text: "Did you cause it?",
+      options: {
+        "Yes": "q4",
+        "No, it was something else": "q6"
+      }
+    },
+    q3: {
+      text: "Would asking make things worse?",
+      options: {
+        "Yes": "q7",
+        "No, I’ll ask gently": "q8"
+      }
+    },
+    q4: {
+      text: "Apologize first. Say sorry genuinely. Don’t explain yet.",
+      options: {
+        "Okay, done": "q9"
+      }
+    },
+    q5: {
+      text: "Start with: 'I feel like something’s wrong. Want to talk or want me to just be here?'",
+      options: {
+        "I’ll say that": "q8"
+      }
+    },
+    q6: {
+      text: "Can you fix the situation?",
+      options: {
+        "Yes": "q10",
+        "No, but I can support her": "q8"
+      }
+    },
+    q7: {
+      text: "Give her space, but make it clear you’re around. Say: 'I’m here when you’re ready.'",
+      options: {
+        "Got it": "q11"
+      }
+    },
+    q8: {
+      text: "What kind of comfort do you think she needs?",
+      options: {
+        "Hugs or physical touch": "q12",
+        "Memes/snacks/distractions": "q13",
+        "Talking it through": "q14"
+      }
+    },
+    q9: {
+      text: "She may still be upset. Don’t rush. Ask: 'Is there anything I can do to make this better?'",
+      options: {
+        "Asked": "q8"
+      }
+    },
+    q10: {
+      text: "Fix it and say: 'I sorted it out. I know it affected you, and I’m really sorry.'",
+      options: {
+        "All done": "q8"
+      }
+    },
+    q11: {
+      text: "Check back later: 'Want a hug, a snack, or a rant session?'",
+      options: {
+        "Sent message": "q8"
+      }
+    },
+    q12: {
+      text: "Be soft and gentle. Offer a hug, forehead kiss, or hand squeeze. Don’t expect her to talk yet.",
+      options: {
+        "Comfort given": "end"
+      }
+    },
+    q13: {
+      text: "Show up with a snack, tea, or send a dumb TikTok.",
+      options: {
+        "Delivered comfort": "end"
+      }
+    },
+    q14: {
+      text: "Let her talk. Don’t fix. Just listen. Say: 'That really sucks. I can see why you feel that way.'",
+      options: {
+        "Listened fully": "end"
+      }
+    },
+    end: {
+      text: "✨ You did it! Whether she’s smiling or still needs time, your care made a difference. ✨",
+      options: {}
+    }
+  };
+
+  let currentQuestion = "start";
+
+  function renderQuestion() {
+    const q = questions[currentQuestion];
+    const questionBox = document.getElementById("questionBox");
+    const optionsBox = document.getElementById("optionsBox");
+    const resultBox = document.getElementById("resultBox");
+
+    questionBox.innerText = q.text;
+    optionsBox.innerHTML = "";
+
+    if (currentQuestion === "end") {
+      resultBox.style.display = "block";
+      resultBox.innerText = q.text;
+      questionBox.style.display = "none";
+      optionsBox.style.display = "none";
+      return;
+    }
+
+    for (const [label, next] of Object.entries(q.options)) {
+      const btn = document.createElement("button");
+      btn.innerText = label;
+      btn.onclick = () => {
+        currentQuestion = next;
+        renderQuestion();
+      };
+      optionsBox.appendChild(btn);
+    }
+  }
+
+  renderQuestion();
+</script>
+
+</body>
+</html>
